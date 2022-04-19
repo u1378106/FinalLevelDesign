@@ -35,6 +35,11 @@ public class _SpaceshipController : MonoBehaviour
         if (shipRot.y > 180) shipRot.y -= 360;
         if (shipRot.z > 180) shipRot.z -= 360;
 
+        if(Input.GetKey(KeyCode.W))
+        {
+           speed = cruiseSpeed = 5;
+        }     
+
         //vertical stick adds to the pitch velocity
         //         (*************************** this *******************************) is a nice way to get the square without losing the sign of the value
         //angVel.x += Input.GetAxis("Vertical") * Mathf.Abs(Input.GetAxis("Vertical")) * sensitivity * Time.fixedDeltaTime;
