@@ -10,6 +10,7 @@ public class _SpaceshipController : MonoBehaviour
     public int minSpeed;
     public int maxSpeed;
     float accel, decel;
+    public GameObject projectile;
 
     //turning stuff
     Vector3 angVel;
@@ -17,6 +18,8 @@ public class _SpaceshipController : MonoBehaviour
     public int sensitivity;
 
     public Vector3 cameraOffset; //I use (0,1,-3)
+
+    FuelManager fuelManager;
 
     void Start()
     {
@@ -37,8 +40,21 @@ public class _SpaceshipController : MonoBehaviour
 
         if(Input.GetKey(KeyCode.W))
         {
-           speed = cruiseSpeed = 5;
-        }     
+            //speed = cruiseSpeed = 5;
+            speed += accel * Time.fixedDeltaTime;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            //speed = cruiseSpeed = 5;
+            speed -= accel * 0.1f * Time.fixedDeltaTime;
+        }
+
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            GameObject shoot = GameObject.Instantiate(projectile, this.transform);
+            shoot.GetComponent<Rigidbody>().AddForce(this.transform.forward * 400f);
+        }
 
         //vertical stick adds to the pitch velocity
         //         (*************************** this *******************************) is a nice way to get the square without losing the sign of the value
@@ -95,7 +111,7 @@ public class _SpaceshipController : MonoBehaviour
 
         //simple accelerations
         if (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKey(KeyCode.LeftShift))
-            speed += accel * Time.fixedDeltaTime;
+            speed += accel * 2 * Time.fixedDeltaTime;
         else if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetKey(KeyCode.Space))
             speed -= decel * Time.fixedDeltaTime;
 
