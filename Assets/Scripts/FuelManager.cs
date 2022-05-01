@@ -16,7 +16,7 @@ public class FuelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        kFuelLoss = 0.05f;
+        kFuelLoss = 0.01f;
     }
 
     // Update is called once per frame

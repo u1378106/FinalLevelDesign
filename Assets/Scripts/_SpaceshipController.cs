@@ -21,9 +21,12 @@ public class _SpaceshipController : MonoBehaviour
 
     FuelManager fuelManager;
 
+    float height, shipX, shipZ;
+
     void Start()
     {
         speed = cruiseSpeed;
+        height = this.transform.position.y;
     }
 
     void FixedUpdate()
@@ -68,19 +71,19 @@ public class _SpaceshipController : MonoBehaviour
 
         //shoulder buttons add to the roll and yaw.  No deltatime here for a quick response
         //comment out the .y parts if you don't want to turn when you hit them
-        if (Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKey(KeyCode.I))
-        {
-            angVel.y -= 20;
-            angVel.z += 50;
-            speed -= 5 * Time.fixedDeltaTime;
-        }
+        //if (Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKey(KeyCode.I))
+        //{
+        //    angVel.y -= 20;
+        //    angVel.z += 50;
+        //    speed -= 5 * Time.fixedDeltaTime;
+        //}
 
-        if (Input.GetKey(KeyCode.Joystick1Button5) || Input.GetKey(KeyCode.O))
-        {
-            angVel.y += 20;
-            angVel.z -= 50;
-            speed -= 5 * Time.fixedDeltaTime;
-        }
+        //if (Input.GetKey(KeyCode.Joystick1Button5) || Input.GetKey(KeyCode.O))
+        //{
+        //    angVel.y += 20;
+        //    angVel.z -= 50;
+        //    speed -= 5 * Time.fixedDeltaTime;
+        //}
 
 
         //your angular velocity is higher when going slower, and vice versa.  There probably exists a better function for this.
@@ -142,5 +145,18 @@ public class _SpaceshipController : MonoBehaviour
 
     void Update()
     {
+        height = this.transform.position.y;
+        shipX = this.transform.position.x;
+        shipZ = this.transform.position.z;
+
+        if(height > 7.0f)
+        {
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                this.GetComponentInChildren<Rigidbody>().isKinematic = true;
+                this.transform.position = new Vector3(shipX, 5.83f, shipZ);
+                this.GetComponentInChildren<Rigidbody>().isKinematic = false;
+            }
+        }
     }
 }
