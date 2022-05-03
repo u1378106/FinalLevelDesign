@@ -5,6 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public AudioSource coinAudio;
+    public AudioSource checkpointAudio;
 
     // Start is called before the first frame update
     void Start()

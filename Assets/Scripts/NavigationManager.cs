@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NavigationManager : MonoBehaviour
 {
+    int counter;
 
     private void Start()
     {
@@ -15,6 +16,7 @@ public class NavigationManager : MonoBehaviour
     {
         GameObject[] collectibles;
         collectibles = GameObject.FindGameObjectsWithTag("collectable");
+        counter = collectibles.Length;
         GameObject closest = null;
         float distance = Mathf.Infinity;
         Vector3 position = transform.position;
@@ -26,7 +28,7 @@ public class NavigationManager : MonoBehaviour
             {
                 closest = go;
                 distance = curDistance;
-                Debug.Log("distance : " + distance);
+                //Debug.Log("distance : " + distance);
             }
         }
         return closest;
@@ -39,6 +41,7 @@ public class NavigationManager : MonoBehaviour
 
     private void Update()
     {
+        if(counter > 0)
         LookAtCloseCol();
     }
 }

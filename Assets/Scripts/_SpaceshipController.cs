@@ -21,10 +21,15 @@ public class _SpaceshipController : MonoBehaviour
 
     FuelManager fuelManager;
 
-    float height, shipX, shipZ;
+    float height;
+
+    Collectable collectable;
 
     void Start()
     {
+        collectable = GameObject.FindObjectOfType<Collectable>();
+        fuelManager = GameObject.FindObjectOfType<FuelManager>();
+
         speed = cruiseSpeed;
         height = this.transform.position.y;
     }
@@ -51,12 +56,6 @@ public class _SpaceshipController : MonoBehaviour
         {
             //speed = cruiseSpeed = 5;
             speed -= accel * 0.1f * Time.fixedDeltaTime;
-        }
-
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            GameObject shoot = GameObject.Instantiate(projectile, this.transform);
-            shoot.GetComponent<Rigidbody>().AddForce(this.transform.forward * 400f);
         }
 
         //vertical stick adds to the pitch velocity
@@ -145,16 +144,21 @@ public class _SpaceshipController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GameObject shoot = GameObject.Instantiate(projectile, this.transform);
+            shoot.GetComponent<Rigidbody>().AddForce(this.transform.forward * 400f);
+            fuelManager.fuelAmount -= 0.05f;
+        }
+
         height = this.transform.position.y;
-        shipX = this.transform.position.x;
-        shipZ = this.transform.position.z;
 
         if(height > 7.0f)
         {
             if(Input.GetKeyDown(KeyCode.R))
             {
                 this.GetComponentInChildren<Rigidbody>().isKinematic = true;
-                this.transform.position = new Vector3(shipX, 5.83f, shipZ);
+                this.transform.position = collectable.lastCheckPos + new Vector3(5,5.83f,0);
                 this.GetComponentInChildren<Rigidbody>().isKinematic = false;
             }
         }
