@@ -13,26 +13,36 @@ public class FuelManager : MonoBehaviour
 
     private float kFuelLoss = 0f;
 
+    public GameObject gameOver;
+
     // Start is called before the first frame update
     void Start()
     {
-        kFuelLoss = 0.01f;
+        gameOver.SetActive(false);
+        kFuelLoss = 0.018f;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (fuelAmount > 0)
+        if (GameStartManager.isGameStart)
         {
-            fuelAmount -= kFuelLoss * Time.deltaTime;
-            fuelMeter.fillAmount = fuelAmount;
+            if (fuelAmount > 0)
+            {
+                fuelAmount -= kFuelLoss * Time.deltaTime;
+                fuelMeter.fillAmount = fuelAmount;
 
-            if (fuelAmount < 0.70f && fuelAmount > 0.30f)
-                fuelMeter.color = Color.yellow;
-            else if (fuelAmount < 0.30f && fuelAmount >= 0f)
-                fuelMeter.color = Color.red;
+                if (fuelAmount < 0.70f && fuelAmount > 0.30f)
+                    fuelMeter.color = Color.yellow;
+                else if (fuelAmount < 0.30f && fuelAmount >= 0f)
+                    fuelMeter.color = Color.red;
+                else
+                    fuelMeter.color = Color.green;
+            }
             else
-                fuelMeter.color = Color.green;
+            {
+                gameOver.SetActive(true);
+            }
         }
     }
 }

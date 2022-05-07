@@ -14,9 +14,13 @@ public class Collectable : MonoBehaviour
 
     public TextMeshProUGUI partsCounterText;
 
+    public GameObject winScreen;
+
     // Start is called before the first frame update
     void Start()
     {
+        winScreen.SetActive(false);
+
         fuelManager = GameObject.FindObjectOfType<FuelManager>();
         audioManager = GameObject.FindObjectOfType<AudioManager>();
 
@@ -55,6 +59,9 @@ public class Collectable : MonoBehaviour
 
             Destroy(other.gameObject);
         }
+
+        if (collectionCounter == 10)
+            winScreen.SetActive(true);
     }
 
     IEnumerator HandleCheckpointCollider(GameObject other)

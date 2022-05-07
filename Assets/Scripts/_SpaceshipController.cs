@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class _SpaceshipController : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class _SpaceshipController : MonoBehaviour
 
         speed = cruiseSpeed;
         height = this.transform.position.y;
+        
     }
 
     void FixedUpdate()
@@ -114,8 +116,8 @@ public class _SpaceshipController : MonoBehaviour
         //simple accelerations
         if (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKey(KeyCode.LeftShift))
             speed += accel * 2 * Time.fixedDeltaTime;
-        else if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetKey(KeyCode.Space))
-            speed -= decel * Time.fixedDeltaTime;
+        //else if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetKey(KeyCode.Space))
+        //    speed -= decel * Time.fixedDeltaTime;
 
         //if not accelerating or decelerating, tend toward cruise, using a similar principle to the accelerations above
         //(added clamping since it's more of a gradual slowdown/speedup) 
@@ -144,7 +146,12 @@ public class _SpaceshipController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene(0);
+        }
+
+            if (Input.GetKeyDown(KeyCode.C))
         {
             GameObject shoot = GameObject.Instantiate(projectile, this.transform);
             shoot.GetComponent<Rigidbody>().AddForce(this.transform.forward * 400f);
