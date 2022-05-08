@@ -6,6 +6,9 @@ public class AudioManager : MonoBehaviour
 {
     public AudioSource coinAudio;
     public AudioSource checkpointAudio;
+    public AudioSource enemyDestroy;
+    public AudioSource bgSound;
+
 
     // Start is called before the first frame update
     void Start()

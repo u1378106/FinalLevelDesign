@@ -10,9 +10,12 @@ public class EnemyManager : MonoBehaviour
 
     public GameObject star3;
 
+    AudioManager audioManager;
+
     private void Start()
     {
         fuelManager = GameObject.FindObjectOfType<FuelManager>();
+        audioManager = GameObject.FindObjectOfType<AudioManager>();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -21,12 +24,14 @@ public class EnemyManager : MonoBehaviour
         {
             ScoreManager.score += 10;
             Destroy(this.gameObject);
+            audioManager.enemyDestroy.Play();
         }
 
         if(other.gameObject.tag.Equals("Player"))
         {
             Debug.Log("Game OVer !!!!");
             fuelManager.gameOver.SetActive(true);
+            audioManager.enemyDestroy.Play();
         }
     }
 
