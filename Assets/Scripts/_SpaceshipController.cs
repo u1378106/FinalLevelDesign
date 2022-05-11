@@ -26,6 +26,8 @@ public class _SpaceshipController : MonoBehaviour
 
     Collectable collectable;
 
+    public GameObject warningText;
+
     void Start()
     {
         collectable = GameObject.FindObjectOfType<Collectable>();
@@ -33,7 +35,8 @@ public class _SpaceshipController : MonoBehaviour
 
         speed = cruiseSpeed;
         height = this.transform.position.y;
-        
+        warningText.SetActive(false);
+
     }
 
     void FixedUpdate()
@@ -51,7 +54,7 @@ public class _SpaceshipController : MonoBehaviour
         if(Input.GetKey(KeyCode.W))
         {
             //speed = cruiseSpeed = 5;
-            speed += accel * Time.fixedDeltaTime;
+            speed += accel * 0.8f * Time.fixedDeltaTime;
         }
 
         if (Input.GetKey(KeyCode.S))
@@ -155,15 +158,19 @@ public class _SpaceshipController : MonoBehaviour
         {
             GameObject shoot = GameObject.Instantiate(projectile, this.transform);
             shoot.GetComponent<Rigidbody>().AddForce(this.transform.forward * 400f);
-            fuelManager.fuelAmount -= 0.05f;
+            fuelManager.fuelAmount -= 0.025f;
         }
 
         height = this.transform.position.y;
 
-        if(height > 7.0f)
+        if(height > 10.0f)
         {
-            if(Input.GetKeyDown(KeyCode.R))
+            if (height > 40.0f)
+                warningText.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.R))
             {
+                warningText.SetActive(false);
                 this.GetComponentInChildren<Rigidbody>().isKinematic = true;
                 this.transform.position = collectable.lastCheckPos + new Vector3(5,5.83f,0);
                 this.GetComponentInChildren<Rigidbody>().isKinematic = false;

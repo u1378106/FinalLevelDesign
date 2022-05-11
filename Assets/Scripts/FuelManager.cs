@@ -19,7 +19,7 @@ public class FuelManager : MonoBehaviour
     void Start()
     {
         gameOver.SetActive(false);
-        kFuelLoss = 0.018f;
+        kFuelLoss = 0.01f;
     }
 
     // Update is called once per frame

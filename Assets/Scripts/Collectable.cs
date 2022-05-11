@@ -24,7 +24,7 @@ public class Collectable : MonoBehaviour
         fuelManager = GameObject.FindObjectOfType<FuelManager>();
         audioManager = GameObject.FindObjectOfType<AudioManager>();
 
-        partsCounterText.text = "Parts Collected : /10" ;
+        partsCounterText.text = "Parts Collected : /16" ;
     }
 
     // Update is called once per frame
@@ -47,9 +47,10 @@ public class Collectable : MonoBehaviour
         if (other.gameObject.tag.Equals("collectable"))
         {
             collectionCounter++;
+            ScoreManager.score += 20;
             Debug.Log("Collection counter : " + collectionCounter);
-            partsCounterText.text = "Parts Collected : " + collectionCounter.ToString() + "/10";
-
+            partsCounterText.text = "Parts Collected : " + collectionCounter.ToString() + "/16";
+            
             if (fuelManager.fuelAmount < 1)
             {
                 fuelManager.fuelAmount += 0.1f;
@@ -58,9 +59,11 @@ public class Collectable : MonoBehaviour
             audioManager.coinAudio.Play();
 
             Destroy(other.gameObject);
+            this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
         }
 
-        if (collectionCounter == 10)
+        if (collectionCounter == 16)
             winScreen.SetActive(true);
     }
 

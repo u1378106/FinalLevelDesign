@@ -96,3 +96,4 @@ Material:
     - _TopColor: {r: 2, g: 1.9716982, b: 1.9716982, a: 1}
     - _TopColor1: {r: 0.59574103, g: 0.51699895, b: 0.6981132, a: 1}
     - _Vector1: {r: 0.1, g: 1, b: 0.1, a: 0}
+  m_BuildTextureStacks: []
